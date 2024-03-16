@@ -29,6 +29,7 @@ if (isset($_POST["email"])) {
             $hashed_password
         );
         $stm->execute();
+
         $result = $stm->get_result();
         $user = $result->fetch_assoc(); //fetch user where parameter is true.
 
@@ -39,8 +40,6 @@ if (isset($_POST["email"])) {
             $_SESSION['username'] = $user['username'];
 
             set_message("You have successfully logged in " . $_SESSION['username']);
-
-            //TODO: give a feedback/ welcome message
 
             header('Location: dashboard.php');
             die();
@@ -53,8 +52,7 @@ if (isset($_POST["email"])) {
         // $conn->close();
     } else {
         // DEV PURPOSE
-        // The echo message should not be here, but as it is written above.
-        // echo 'Could not find user';
+        echo 'Could not prepare statement';
     }
 
 }
