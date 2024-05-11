@@ -20,7 +20,7 @@ if (isset($_POST["email"])) {
     // prepared statement
     if ($stm = $conn->prepare('SELECT * FROM user WHERE email = ? AND password = ? AND active = 1')) {
         // hash password for security reasons`
-        $hashed_password = SHA1($password); //encoded on the DB as SHA1 decoded from the UI as SHA1.
+        $hashed_password = SHA1($password); //encoded and decoded on the DB as SHA1.
 
         // bind statement
         $stm->bind_param(
@@ -49,7 +49,6 @@ if (isset($_POST["email"])) {
         }
         $stm->close();
 
-        // $conn->close();
     } else {
         // DEV PURPOSE
         echo 'Could not prepare statement';

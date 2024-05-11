@@ -9,7 +9,7 @@ $db = 'contentManagementSystemDB';
 // create connection to server
 $conn = new mysqli($serverName, $serverUsername, $serverPassword, $db);
 
-// check if connection successful.
+// check if connection successful. With a tenary operator.
 $conn->connect_error ? die("Connection failed: " . $conn->connect_error . "<br>") : " ";
 
 // Create DB

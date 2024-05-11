@@ -29,7 +29,7 @@ if (isset($_POST["username"])) {
         );
         $stm->execute();
 
-        set_message("A new user " . $_SESSION['username'] . " has been added.");
+        set_message("A new user has been added by" . $_SESSION['username'] . ".");
         header('location: users.php');
         $stm->close();
         die();
@@ -37,11 +37,9 @@ if (isset($_POST["username"])) {
 
 
 
-        // $conn->close();
+
     } else {
-        // DEV PURPOSE
-        // The echo message should not be here, but as it is written above.
-        // echo 'Could not find user';
+        echo 'Could not prepare statement';
     }
 
 }

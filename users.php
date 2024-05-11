@@ -8,14 +8,42 @@ secure(); //secures the dashboard page from being accessed without logging in.
 
 include "includes/header.php";
 
+if (isset($_GET['delete'])) {
+
+    // prepared statement
+    if ($stm = $conn->prepare('DELETE FROM user WHERE id = ?')) {
+
+        // bind statement
+        $stm->bind_param(
+            'i',
+            $_GET['delete']
+        );
+        $stm->execute();
+
+        set_message("A user " . $_GET['delete'] . " has been deleted.");
+        header('location: users.php');
+        $stm->close();
+        die();
+
+
+
+
+
+    } else {
+        echo 'Could not prepare statement';
+    }
+    header('location: users.php');
+
+
+}
+
 //Want to select current users
 if ($stm = $conn->prepare('SELECT * FROM user')) {
     $stm->execute();
 
 
     $result = $stm->get_result();
-    // $user = $result->fetch_assoc(); //fetch user where parameter is true.
-    // var_dump($result);
+
 
 
     if ($result->num_rows > 0) {

@@ -8,6 +8,9 @@ secure(); //secures the dashboard page from being accessed without logging in.
 
 include "includes/header.php";
 
+
+
+
 if (isset($_POST["username"])) {
     $username = $_POST["username"];
     $email = $_POST["email"];
@@ -26,17 +29,34 @@ if (isset($_POST["username"])) {
         );
         $stm->execute();
 
-        set_message("A User " . $_SESSION['username'] . " has been updated.");
-        header('location: users.php');
+        set_message("User " . $id . " has been updated.");
         $stm->close();
+
+        if (isset($_POST['password'])) {
+            if ($stm = $conn->prepare('UPDATE  user SET password = ?  WHERE id = ?')) {
+                $hashed = SHA1($_POST['password']);
+
+                // bind statement
+                $stm->bind_param(
+                    'si',
+                    $hashed,
+                    $id
+                );
+                $stm->execute();
+                $stm->close();
+            }
+        } else {
+            echo 'Could not prepare password update statement.';
+        }
+        header('location: users.php');
         die();
 
-
     } else {
-        echo 'Could not prepare statement';
+        echo 'Could not prepare user update statement';
     }
 
 }
+
 
 
 if (isset($_GET['id'])) {
@@ -102,7 +122,6 @@ if (isset($_GET['id'])) {
             </div>
 
             <?php
-            die();
         } else {
 
             echo "This User was not found";
