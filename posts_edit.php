@@ -36,7 +36,7 @@ if (isset($_POST["title"])) {
 
 
         header('location: posts.php');
-        set_message("A post " . $id . " has been updated.");
+        set_message("Post ID" . $id . " has been updated.");
         die();
 
     } else {
