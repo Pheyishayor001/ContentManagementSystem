@@ -8,11 +8,6 @@ secure(); //secures the dashboard page from being accessed without logging in.
 
 include "includes/header.php";
 
-
-
-
-
-
 ?>
 
 <div class="container mt-5">

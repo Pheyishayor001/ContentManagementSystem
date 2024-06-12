@@ -10,8 +10,9 @@ include "includes/header.php";
 
 if (isset($_GET['delete'])) {
 
+
     // prepared statement
-    if ($stm = $conn->prepare('DELETE FROM user WHERE id = ?')) {
+    if ($stm = $conn->prepare('DELETE FROM posts WHERE id = ?')) {
 
         // bind statement
         $stm->bind_param(
@@ -20,8 +21,8 @@ if (isset($_GET['delete'])) {
         );
         $stm->execute();
 
-        set_message("A user " . $_GET['delete'] . " has been deleted.");
-        header('location: users.php');
+        set_message("A post, ID " . $_GET['delete'] . ", has been deleted.");
+        header('location: posts.php');
         $stm->close();
         die();
 
@@ -32,13 +33,13 @@ if (isset($_GET['delete'])) {
     } else {
         echo 'Could not prepare statement';
     }
-    header('location: users.php');
+    header('location: posts.php');
 
 
 }
 
-//Want to select current users
-if ($stm = $conn->prepare('SELECT * FROM user')) {
+//Want to select current posts
+if ($stm = $conn->prepare('SELECT * FROM posts')) {
     $stm->execute();
 
 
@@ -52,48 +53,56 @@ if ($stm = $conn->prepare('SELECT * FROM user')) {
         <div class="container mt-5">
             <div class="row justify-content-center">
                 <div class="col-md-6">
-                    <h1 class="display-2">User's Management</h1>
+                    <h1 class="display-2">Posts Management</h1>
                     <table class="table table-stripped table-hover">
                         <tr>
                             <th>Id</th>
-                            <th>Username</th>
-                            <th>E-mail</th>
-                            <th>Status</th>
+                            <th>Title</th>
+                            <th>Author's ID</th>
+                            <th>Content</th>
+                            <th>Date</th>
                             <th>Edit | Delete</th>
                         </tr>
 
                         <!-- Using the while loop to call data/users from the DB. The forEach loop doesn't work well.-->
-                        <?php while ($record = mysqli_fetch_assoc($result)) { //loops over individual data of users ?>
+                        <?php while ($record = mysqli_fetch_assoc($result)) { //loops over individual data of users which is in form of an array ?>
                             <tr>
                                 <td>
                                     <?php echo $record['id'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $record['username'] ?>
+                                    <?php echo $record['title'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $record['email'] ?>
+                                    <?php echo $record['author'] ?>
                                 </td>
                                 <td>
-                                    <?php echo $record['active'] ? 'Active' : 'Inactive' ?>
+                                    <?php echo $record['content'] ?>
                                 </td>
-                                <td><a href="users_edit.php?id=<?php echo $record['id']; ?>">Edit</a>
+                                <td>
+                                    <?php echo $record['date'] ?>
+                                </td>
+                                <td><a href="posts_edit.php?id=<?php echo $record['id']; ?>">Edit</a>
 
-                                    <a href="users.php?delete=<?php echo $record['id']; ?>">Delete</a>
+                                    <a href="posts.php?delete=<?php echo $record['id']; ?>"
+                                        onclick="return confirm('Are you sure you want to delete this post?');">
+                                        Delete
+                                    </a>
+
                                 </td>
                             </tr>
 
                         <?php } ?>
                     </table>
 
-                    <a href="users_add.php">Add new user</a>
+                    <a href="posts_add.php">Add new Post</a>
                 </div>
             </div>
         </div>
 
         <?php
     } else {
-        echo 'No users found';
+        echo 'No posts found';
     }
     $stm->close();
 } else {

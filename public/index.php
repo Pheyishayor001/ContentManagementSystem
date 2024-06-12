@@ -1,17 +1,14 @@
 <?php
+
 // connection to the database
 include "includes/config.php";
 include "includes/database.php";
 include "includes/functions.php";
-
-include "includes/header.php";
-
 // If a session is set the log in page should not be accessible unless when the user is logged out. The dashboard is the home page.
 if (isset($_SESSION['id'])) {
     header('location: dashboard.php');
     die();
 }
-
 
 if (isset($_POST["email"])) {
     $email = $_POST["email"];
@@ -55,6 +52,8 @@ if (isset($_POST["email"])) {
     }
 
 }
+
+include "includes/header.php";
 ?>
 
 
@@ -75,15 +74,7 @@ if (isset($_POST["email"])) {
                     <label class="form-label" for="password">Password</label>
                 </div>
 
-                <!-- 2 column grid layout for inline styling -->
 
-                <!-- WORK ON THE FORGOT PASSWORD LINK -->
-                <!-- <div class="row mb-4">
-                    <div class="col"> -->
-                <!-- Simple link -->
-                <!-- <a href="#!">Forgot password?</a>
-                    </div>
-                </div> -->
 
                 <!-- Submit button -->
                 <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">Sign in</button>

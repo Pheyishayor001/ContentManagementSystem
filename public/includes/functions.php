@@ -5,7 +5,7 @@ function secure()
 {
     if (!isset($_SESSION['id'])) { //if session is not set...
         set_message('Please login first to view this page.');
-        header('location: /cms'); //if not logged in, redirect to the login page.
+        header('location: /'); //if not logged in, redirect to the login page.
         die();
     }
 }
