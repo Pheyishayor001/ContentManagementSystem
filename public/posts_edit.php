@@ -95,6 +95,8 @@ if (isset($_GET['id'])) {
 
                             <!-- Submit button -->
                             <button data-mdb-ripple-init type="submit" class="btn btn-primary btn-block">Edit Post</button>
+
+
                         </form>
 
                     </div>

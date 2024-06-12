@@ -28,13 +28,13 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="/cms/">Home</a>
+            <a class="nav-link active" aria-current="page" href="/">Home</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#">Dashboard</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/cms/logout.php">Logout</a>
+            <a class="nav-link" href="/logout.php">Logout</a>
           </li>
 
         </ul>
